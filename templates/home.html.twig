@@ -1,0 +1,97 @@
+{{ include('inc/head.html.twig') }}
+{{ include('inc/sidebar.html.twig') }}
+<!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+        <li class="nav-item has-treeview menu-open">
+          <a href="{{path('app_login')}}" class="nav-link active">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              {% if app.user %}
+                  Dashboard
+                {% else %}
+                  Accéder à votre espace
+              {% endif %}
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+    {% if app.user %}
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{asset('dist/img/tchep.jpg')}} " class="img-circle elevation-2" alt="Image du user">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Tchebou Yap</a>
+        </div>
+      </div>
+      <a href="{{path('app_logout')}}" class="brand-link">
+        <i class="nav-icon fas fa-sign-out-alt"></i>
+        <span class="brand-tex t font-weight-light">Se déconnecter</span>
+      </a>
+    {% endif %}
+  </div>
+  <!-- /.sidebar -->
+</aside>
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">
+                {{page_name}}
+              </li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="container-fluid">
+        {% block containtFluid %}
+          <!-- Notice -->
+          <div class="row">
+              <div class="col-12">
+                  <div class="callout callout-info" >
+                    <h5>
+                        <i class="fas fa-info"></i> 
+                        Note:
+                    </h5>
+                    <marquee>
+                      <h2 class="text-center">
+                        Bienvenu dans l'espace de gestion de la boulangerie Daradji.
+                      <h2>
+                    </marquee>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 offset-lg-4">
+              <a class="btn btn-link btn-block bg-gradient-primary btn-lg" href="{{path('app_login')}}">
+                Connexion
+              </a>
+            </div>
+          </div>
+          <!-- /.row -->
+        {% endblock %}
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+{{ include('inc/foot.html.twig') }}
+
