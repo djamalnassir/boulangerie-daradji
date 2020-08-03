@@ -67,12 +67,12 @@ class MatierePremiere
         return $this;
     }
 
-    public function getMagasinStock(): ?MagazinStock
+    public function getMagasinStock(): ?MagasinStock
     {
         return $this->magasinStock;
     }
 
-    public function setMagasinStock(?MagazinStock $magasinStock): self
+    public function setMagasinStock(?MagasinStock $magasinStock): self
     {
         $this->magasinStock = $magasinStock;
 

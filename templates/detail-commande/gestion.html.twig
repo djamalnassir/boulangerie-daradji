@@ -1,0 +1,66 @@
+{% extends 'home.html.twig' %}
+
+{% block containtFluid %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!-- card-header -->
+        <div class="card-header">
+          <h3 class="card-title">Tableau des commandes</h3>
+          <div class="btn-group float-right">
+              
+              <a class="btn btn-block bg-gradient-primary" href="{{ path('add_detail_commande') }}">
+                <i class="fas fa-plus"></i>
+                Ajouter
+              </a>
+          </div>
+        </div>
+        <!-- /.card-header -->
+
+        <!-- card-body -->
+        <div class="card-body">
+          
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>ID commande</th>
+                  <th>Nom matiere premiere</th>
+                  <th>Quantite matiere premiere</th>
+                  <th>Date commande</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              
+                <tbody>
+                  {% if detail_commandes != null %}
+                    {% for detail in detail_commandes %}
+                      <tr>
+                        <td>{{ detail.commande.id }}</td>
+                        <td>{{ detail.matierePremiere.nom }}</td>
+                        <td>{{ detail.quantite }}</td>
+                        <td>{{ detail.commande.date|date('d-m-Y') }}</td>
+                        <td>
+                          <a class="btn btn-info btn-sm" href="{{ path('modify_detail_commande', {'id': detail.id}) }}">
+                            <i class="fas fa-pencil-alt"></i>
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="{{ path('delete_detail_commande', {'id': detail.id}) }}">
+                            <i class="fas fa-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              
+            </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- card -->
+
+{% endblock %}

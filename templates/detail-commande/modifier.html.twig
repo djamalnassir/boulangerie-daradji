@@ -8,7 +8,7 @@
         
         <!-- card-header -->
         <div class="card-header">
-          <h3 class="card-title">Modification d'une matiere premiere</h3>
+          <h3 class="card-title">Modification d'une matiere premiere commandée</h3>
         </div>
         <!-- /.card-header -->
 
@@ -16,15 +16,13 @@
         <div class="card-body">
           {{ form_start(form) }}
             <div class="form-group">
-              {{ form_row(form.code, {'attr': {'class': 'form-control'}}) }}
+              {{ form_row(form.quantite, {'attr': {'class': 'form-control'}}) }}
             </div>
             <div class="form-group">
-              {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+              <label>Choisir matiere premiere</label>
+              {{form_widget(form.matierePremiere, {'attr': {'class': 'form-control'}})}}
             </div>
-            <div class="form-group">
-              {{form_widget(form.magasinStock, {'attr': {'class': 'form-control'}})}}
-            </div>
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="submit" class="btn btn-primary">Modifier</button>
           {{ form_end(form) }}
         </div>
         <!-- /.card-body -->

@@ -34,7 +34,7 @@ class User implements UserInterface
 
     /*
      * @ORM\Column(name="roles", type="array")
-     private $roles = array();
+     * private $roles = array();
     */
 
     /**

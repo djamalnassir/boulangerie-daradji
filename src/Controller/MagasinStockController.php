@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,14 @@ use App\Entity\MagasinStock;
 
 class MagasinStockController extends AbstractController
 {
+
+    private $tokenStorage;
+
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
+
     /**
      * @Route("/magasin/gerer", name="manage_magasin")
      */
@@ -31,11 +40,13 @@ class MagasinStockController extends AbstractController
         }
 
         $magasins = $this->getDoctrine()->getRepository(MagasinStock::class)->findAll();
-
+        $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
+        
         return $this->render('magasin-stock/gestion-magasin.html.twig', [
             'page_name' => 'Magasin Stock',
             'form' => $form->createView(),
             'magasins' => $magasins,
+            'profile' => $profile
         ]);
     }
 
@@ -70,10 +81,12 @@ class MagasinStockController extends AbstractController
         }
 
         $magasins = $this->getDoctrine()->getRepository(MagasinStock::class)->findAll();
+        $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
         return $this->render('magasin-stock/modifier.html.twig', [
             'page_name' => 'Magasin Stock',
             'form' => $form->createView(),
+            'profile' => $profile
         ]);
     }
 }
