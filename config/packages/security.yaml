@@ -25,7 +25,7 @@ security:
                     - App\Security\UserAuthenticator
             logout:
                 path: app_logout
-                target: app_login
+                target: home
            
     role_hierarchy:
         ROLE_CHEF: [ROLE_ALLOWED_TO_SWITCH]

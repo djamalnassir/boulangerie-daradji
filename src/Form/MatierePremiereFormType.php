@@ -19,7 +19,8 @@ class MatierePremiereFormType extends AbstractType
             ->add('nom')
             ->add('magasinStock', EntityType::class, [
                 'class' => MagasinStock::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'placeholder' => 'Matiere Premiere'
             ])
         ;
     }

@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+
+use App\Entity\Commande;
 use App\Form\DetailCommandeFormType;
 use App\Entity\MatierePremiereCommande;
-use App\Entity\Commande;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 
 
@@ -26,7 +27,7 @@ class DetailCommandeController extends AbstractController
     }
 
     /**
-     * @Route("/commande/gerer", name="manage_detail_commande")
+     * @Route("/detail-commande/gerer", name="manage_detail_commande")
      */
     public function manage()
     {
@@ -43,7 +44,7 @@ class DetailCommandeController extends AbstractController
     }
 
     /**
-     * @Route("/commande/ajout", name="add_detail_commande")
+     * @Route("/detail-commande/ajout", name="add_detail_commande")
      */
     public function add(AuthenticationUtils $authenticationUtils, Request $request)
     {
@@ -53,13 +54,21 @@ class DetailCommandeController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid())
         {
-            $entityManager = $this->getDoctrine()->getManager();
-            
-            // création d'un objet et attribution de la date du jour
-            $commande = new Commande();
-            $date_jour = new \DateTime('now');
-            $commande->setDate($date_jour);
 
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $id_commande = $form->getData()->getCommande()->getId();
+            $commande = $this->getDoctrine()->getRepository(Commande::class)->find($id_commande);
+
+            if ($commande == null) {
+                
+                // création d'un objet commande et attribution de la date du jour
+                $commande = new Commande();
+                $date_jour = new \DateTime('now');
+                $commande->setDate($date_jour);
+
+            }
+            
             // persistence
             $entityManager->persist($commande);
             $entityManager->flush();
@@ -86,7 +95,7 @@ class DetailCommandeController extends AbstractController
     }
 
     /**
-     * @Route("/commande/supprimer/{id}", name="delete_detail_commande")
+     * @Route("/detail-commande/supprimer/{id}", name="delete_detail_commande")
      */
     public function delete(int $id): Response
     {
@@ -94,7 +103,7 @@ class DetailCommandeController extends AbstractController
         $detail_commande = $entityManager->getRepository(MatierePremiereCommande::class)->find($id);
 
         // on réccupère l'id de la commande à laquelle est relié le detail_matiere_premiere
-        $id_commande = $detail_commande.getId();
+        $id_commande = $detail_commande->getId();
 
         // persistence
         $entityManager->remove($detail_commande);
@@ -115,7 +124,7 @@ class DetailCommandeController extends AbstractController
     }
 
     /**
-     * @Route("/commande/modifier/{id}", name="modify_detail_commande")
+     * @Route("/detail-commande/modifier/{id}", name="modify_detail_commande")
      */
     public function modify(Request $request, int $id): Response
     {

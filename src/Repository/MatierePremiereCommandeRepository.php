@@ -19,22 +19,21 @@ class MatierePremiereCommandeRepository extends ServiceEntityRepository
         parent::__construct($registry, MatierePremiereCommande::class);
     }
 
-    // /**
-    //  * @return MatierePremiereCommande[] Returns an array of MatierePremiereCommande objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return MatierePremiereCommande[] Returns an array of MatierePremiereCommande objects
+     */
+    
+    public function findByCommandeId($id)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('m.id = :val')
+            ->setParameter('val', $id)
             ->orderBy('m.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?MatierePremiereCommande

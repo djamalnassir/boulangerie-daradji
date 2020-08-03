@@ -2,12 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\MatierePremiereCommande;
+use App\Entity\Commande;
 use App\Entity\MatierePremiere;
+use App\Entity\MatierePremiereCommande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DetailCommandeFormType extends AbstractType
 {
@@ -18,6 +19,12 @@ class DetailCommandeFormType extends AbstractType
             ->add('matierePremiere', EntityType::class, [
                 'class' => MatierePremiere::class,
                 'choice_label' => 'nom',
+                'placeholder' => 'Matiere premiere'
+            ])
+            ->add('commande', EntityType::class, [
+                'class' => Commande::class,
+                'choice_label' => 'id',
+                'placeholder' => 'Commande',
             ])
         ;
     }
