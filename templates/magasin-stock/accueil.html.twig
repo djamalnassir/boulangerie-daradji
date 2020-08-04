@@ -1,0 +1,61 @@
+{% extends 'home.html.twig' %}
+
+{% block containtFluid %}
+    
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+
+        <div class="col-lg-4 col-8">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <p>Gestion Stock</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <a href="{{path('manage_magasin')}}" class="small-box-footer">
+                    Cliquez 
+                    <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- ./col -->
+
+        <div class="col-lg-4 col-8">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                <p>Gestion Commandes</p>
+                </div>
+                <div class="icon">
+                <i class="fas fa-dolly"></i>
+                </div>
+                <a href="{{path('manage_detail_commande')}}" class="small-box-footer">
+                Cliquez 
+                <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- ./col -->
+
+        <div class="col-lg-4 col-8">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                <p>Gestion Livraisons</p>
+                </div>
+                <div class="icon">
+                <i class="fas fa-shipping-fast"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                Cliquez
+                <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- ./col -->
+
+    </div>
+    <!-- /.row -->
+{% endblock %}

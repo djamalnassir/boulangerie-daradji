@@ -23,6 +23,19 @@ class MagasinStockController extends AbstractController
     }
 
     /**
+     * @Route("/magasin/accueil", name="home_gerant")
+     */
+    public function accueil()
+    {
+        $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
+        
+        return $this->render('magasin-stock/accueil.html.twig', [
+            'page_name' => 'Magasin Stock',
+            'profile' => $profile
+        ]);
+    }
+
+    /**
      * @Route("/magasin/gerer", name="manage_magasin")
      */
     public function ajout(Request $request)

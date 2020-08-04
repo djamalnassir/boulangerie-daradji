@@ -38,6 +38,11 @@ class MatierePremiere
      */
     private $matierePremiereCommande;
 
+    /**
+     * @ORM\OneToOne(targetEntity=DetailAppro::class, mappedBy="matierePremiere", cascade={"persist", "remove"})
+     */
+    private $detailAppro;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +96,23 @@ class MatierePremiere
         // set the owning side of the relation if necessary
         if ($matierePremiereCommande->getMatierePremiere() !== $this) {
             $matierePremiereCommande->setMatierePremiere($this);
+        }
+
+        return $this;
+    }
+
+    public function getDetailAppro(): ?DetailAppro
+    {
+        return $this->detailAppro;
+    }
+
+    public function setDetailAppro(DetailAppro $detailAppro): self
+    {
+        $this->detailAppro = $detailAppro;
+
+        // set the owning side of the relation if necessary
+        if ($detailAppro->getMatierePremiere() !== $this) {
+            $detailAppro->setMatierePremiere($this);
         }
 
         return $this;

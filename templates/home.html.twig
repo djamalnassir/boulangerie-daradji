@@ -5,16 +5,52 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
-          <a href="{{path('app_login')}}" class="nav-link active">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+          {% if is_granted('ROLE_GERANT') %}
+            <a href="{{path('home_gerant')}}" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                {% if app.user %}
+                    Dashboard
+                  {% else %}
+                    Accéder à votre espace
+                {% endif %}
+              </p>
+            </a>
+          {% endif %}
+        </li>
+        <li class="nav-header">Liste des options</li>
+        <li class="nav-item">
+          <a href="{{path('manage_matiere')}}" class="nav-link">
+            <i class="nav-icon fas fa-seedling"></i>
             <p>
-              {% if app.user %}
-                  Dashboard
-                {% else %}
-                  Accéder à votre espace
-              {% endif %}
+              Gestion Matieres Premieres
             </p>
           </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{path('manage_detail_commande')}}" class="nav-link">
+            <i class="nav-icon fas fa-paste"></i>
+            <p>
+              Gestion Commandes
+            </p>
+          </a>
+          
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-dolly"></i>
+            <p>
+              Gestion Appro
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Gestion Appro</p>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>
@@ -63,32 +99,78 @@
     <section class="content">
 
       <div class="container-fluid">
-        {% block containtFluid %}
-          <!-- Notice -->
+        <!-- Notice -->
           <div class="row">
-              <div class="col-12">
-                  <div class="callout callout-info" >
-                    <h5>
-                        <i class="fas fa-info"></i> 
-                        Note:
-                    </h5>
-                    <marquee>
-                      <h2 class="text-center">
-                        Bienvenu dans l'espace de gestion de la boulangerie Daradji.
-                      <h2>
-                    </marquee>
-                  </div>
+            <div class="col-12">
+              <div class="callout callout-info" >
+                <h5>
+                  <i class="fas fa-info"></i> 
+                  Note:
+                </h5>
+                <marquee>
+                  <h2 class="text-center">
+                    Bienvenu dans l'espace de gestion de la boulangerie Daradji.
+                  <h2>
+                </marquee>
               </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-4 offset-lg-4">
-              <a class="btn btn-link btn-block bg-gradient-primary btn-lg" href="{{path('app_login')}}">
-                Connexion
-              </a>
             </div>
           </div>
+          {% if not app.user %}
+            {% block connexionButton %}
+              <div class="row">
+                <div class="col-lg-4 offset-lg-4">
+                  <a class="btn btn-link btn-block bg-gradient-primary btn-lg" href="{{path('app_login')}}">
+                    Connexion
+                  </a>
+                </div>
+              </div>
+            {% endblock %}
+          {% endif %}
           <!-- /.row -->
+        {% block containtFluid %}
         {% endblock %}
+        {% if is_granted('ROLE_CHEF') %}
+          <!-- Small boxes (Stat box) -->
+            <div class="row">
+
+              <div class="col-lg-6 col-12">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <p>Bilan Gérant</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-industry"></i>
+                  </div>
+                  <a href="{{path()}}" class="small-box-footer">
+                    Cliquez 
+                    <i class="fas fa-arrow-circle-right"></i>
+                  </a>
+                </div>
+              </div>
+              <!-- ./col -->
+
+              <div class="col-lg-6 col-12">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <p>Bilan Comptable</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-dolly"></i>
+                  </div>
+                  <a href="#" class="small-box-footer">
+                    Cliquez 
+                    <i class="fas fa-arrow-circle-right"></i>
+                  </a>
+                </div>
+              </div>
+              <!-- ./col -->
+
+            </div>
+            <!-- /.row -->
+        {% endif %}
+        
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
