@@ -2,28 +2,32 @@
 
 namespace App\Form;
 
-
-use App\Entity\MagasinStock;
+use App\Entity\DetailAppro;
 use App\Entity\MatierePremiere;
+use App\Entity\Appro;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class MatierePremiereFormType extends AbstractType
+class DetailApproType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code')
-            ->add('nom')
+            ->add('quantite')
+            ->add('matierePremiere', EntityType::class, [
+                'class' => MatierePremiere::class,
+                'choice_label' => 'nom',
+                'placeholder' => 'matierePremiere',
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => MatierePremiere::class,
+            'data_class' => DetailAppro::class,
         ]);
     }
 }

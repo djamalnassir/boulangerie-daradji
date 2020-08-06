@@ -37,7 +37,11 @@
                       <tr>
                         <td>{{ matiere.code }}</td>
                         <td>{{ matiere.nom }}</td>
-                        <td>{{ matiere.magasinStock.nom }}</td>
+                        {% if matiere.magasinStock == null %}
+                            <td>0 en stock</td>
+                          {% else %}
+                            <td>{{ matiere.magasinStock.nom }}</td>
+                        {% endif %}
                         <td>
                           <a class="btn btn-info btn-sm" href="{{ path('modify_matiere', {'id': matiere.id}) }}">
                             <i class="fas fa-pencil-alt"></i>

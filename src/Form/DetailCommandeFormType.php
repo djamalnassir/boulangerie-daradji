@@ -21,11 +21,6 @@ class DetailCommandeFormType extends AbstractType
                 'choice_label' => 'nom',
                 'placeholder' => 'Matiere premiere'
             ])
-            ->add('commande', EntityType::class, [
-                'class' => Commande::class,
-                'choice_label' => 'id',
-                'placeholder' => 'Commande',
-            ])
         ;
     }
 

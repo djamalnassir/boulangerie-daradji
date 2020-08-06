@@ -57,9 +57,11 @@ class DetailCommandeController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
 
-            $id_commande = $form->getData()->getCommande()->getId();
-            $commande = $this->getDoctrine()->getRepository(Commande::class)->find($id_commande);
-
+            /**
+             * $id_commande = $form->getData()->getCommande()->getId();
+             * $commande = $this->getDoctrine()->getRepository(Commande::class)->find($id_commande);
+             */
+            
             // création d'un objet commande et attribution de la date du jour
             $commande = new Commande();
             $date_jour = new \DateTime('now');

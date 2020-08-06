@@ -7,14 +7,12 @@
       <div class="card">
         <!-- card-header -->
         <div class="card-header">
-          <h3 class="card-title">Tableau des matieres premieres</h3>
+          <h3 class="card-title">Tableau des approvisionnements</h3>
           <div class="btn-group float-right">
-              <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modalAjoutForm">
+              
+              <a class="btn btn-block bg-gradient-primary" href="{{ path('add_detail_appro') }}">
                 <i class="fas fa-plus"></i>
                 Ajouter
-              </button>
-              <a class="btn btn-block bg-gradient-primary" href="{{ path('add_matiere') }}">
-                <i class="fas fa-pencil-alt"></i>
               </a>
           </div>
         </div>
@@ -26,29 +24,33 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Code</th>
-                  <th>Nom</th>
+                  <th>ID Appro</th>
+                  <th>Matiere Premiere Appro</th>
+                  <th>Quantite Matiere Premiere Appro</th>
+                  <th>Date Appro</th>
                   <th>Action</th>
                 </tr>
               </thead>
               
                 <tbody>
-                  {% if matieres != null %}
-                    {% for matiere in matieres %}
+                  {% if detail_appros != null %}
+                    {% for detail in detail_appros %}
                       <tr>
-                        <td>{{ matiere.code }}</td>
-                        <td>{{ matiere.nom }}</td>
+                        <td>{{ detail.appro.id }}</td>
+                        <td>{{ detail.matierePremiere.nom }}</td>
+                        <td>{{ detail.quantite }}</td>
+                        <td>{{ detail.appro.dateAppro|date('d-m-Y') }}</td>
                         <td>
-                          <a class="btn btn-info btn-sm" href="{{ path('modify_matiere', {'id': matiere.id}) }}">
+                          <a class="btn btn-info btn-sm" href="#">
                             <i class="fas fa-pencil-alt"></i>
                           </a>
-                          <a class="btn btn-danger btn-sm" href="{{ path('delete_matiere', {'id': matiere.id}) }}">
+                          <a class="btn btn-danger btn-sm" href="#">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
                       </tr>
                     {% endfor %}
-                  {% endblock %}
+                  {% endif %}
                 </tbody>
               
             </table>

@@ -29,7 +29,7 @@ class MatierePremiere
 
     /**
      * @ORM\ManyToOne(targetEntity=MagasinStock::class, inversedBy="matierePremieres")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $magasinStock;
 
