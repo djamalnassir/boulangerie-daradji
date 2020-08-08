@@ -7,12 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\MagasinFormType;
-use App\Entity\MagasinStock;
+use App\Form\ClientType;
+use App\Entity\Client;
 
 
 
-class MagasinStockController extends AbstractController
+class ClientController extends AbstractController
 {
 
     private $tokenStorage;
@@ -23,81 +23,81 @@ class MagasinStockController extends AbstractController
     }
 
     /**
-     * @Route("/magasin/accueil", name="home_gerant")
+     * @Route("/client/accueil", name="home_comptable")
      */
     public function accueil()
     {
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
         
-        return $this->render('magasin-stock/accueil.html.twig', [
-            'page_name' => 'Magasin Stock',
+        return $this->render('client/accueil.html.twig', [
+            'page_name' => 'Client',
             'profile' => $profile
         ]);
     }
 
     /**
-     * @Route("/magasin/gerer", name="manage_magasin")
+     * @Route("/client/gerer", name="manage_client")
      */
     public function ajout(Request $request)
     {
-        $magasinStock = new MagasinStock();
-        $form = $this->createForm(MagasinFormType::class, $magasinStock );
+        $client = new Client();
+        $form = $this->createForm(ClientType::class, $client );
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($magasinStock);
+            $entityManager->persist($client);
             $entityManager->flush();
-            return $this->redirectToRoute('manage_magasin');
+            return $this->redirectToRoute('manage_client');
         }
 
-        $magasins = $this->getDoctrine()->getRepository(MagasinStock::class)->findAll();
+        $clients = $this->getDoctrine()->getRepository(Client::class)->findAll();
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
         
-        return $this->render('magasin-stock/gestion-magasin.html.twig', [
-            'page_name' => 'Magasin Stock',
+        return $this->render('client/gestion.html.twig', [
+            'page_name' => 'Client',
             'form' => $form->createView(),
-            'magasins' => $magasins,
+            'clients' => $clients,
             'profile' => $profile
         ]);
     }
 
     /**
-     * @Route("/magasin/gerer/{id}", name="delete_magasin")
+     * @Route("/client/gerer/{id}", name="delete_client")
      */
     public function delete(int $id): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $magasins = $entityManager->getRepository(MagasinStock::class)->find($id);
-        $entityManager->remove($magasins);
+        $clients = $entityManager->getRepository(Client::class)->find($id);
+        $entityManager->remove($clients);
         $entityManager->flush();
 
-        return $this->redirectToRoute("manage_magasin");
+        return $this->redirectToRoute("manage_client");
     }
 
     /**
-     * @Route("/magasin/modifier/{id}", name="modify_magasin")
+     * @Route("/client/modifier/{id}", name="modify_client")
      */
     public function modify(Request $request, int $id): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $magasin = $entityManager->getRepository(MagasinStock::class)->find($id);
-        $form = $this->createForm(MagasinFormType::class, $magasin);
+        $client = $entityManager->getRepository(Client::class)->find($id);
+        $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
             $entityManager->flush();
-            return $this->redirectToRoute("manage_magasin");
+            return $this->redirectToRoute("manage_client");
         }
 
-        $magasins = $this->getDoctrine()->getRepository(MagasinStock::class)->findAll();
+        $clients = $this->getDoctrine()->getRepository(Client::class)->findAll();
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('magasin-stock/modifier.html.twig', [
-            'page_name' => 'Magasin Stock',
+        return $this->render('client/modifier.html.twig', [
+            'page_name' => 'client',
             'form' => $form->createView(),
             'profile' => $profile
         ]);
