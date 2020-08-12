@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MatierePremiereCommandeRepository;
+use App\Repository\DetailCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MatierePremiereCommandeRepository::class)
+ * @ORM\Entity(repositoryClass=DetailCommandeRepository::class)
  */
-class MatierePremiereCommande
+class DetailCommande
 {
     /**
      * @ORM\Id()
@@ -23,14 +23,14 @@ class MatierePremiereCommande
     private $quantite;
 
     /**
-     * @ORM\OneToOne(targetEntity=MatierePremiere::class, inversedBy="matierePremiereCommande", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=MatierePremiere::class, inversedBy="detailCommandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $matierePremiere;
 
     /**
-     * @ORM\OneToOne(targetEntity=Commande::class, inversedBy="matierePremiereCommande", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="detailCommandes")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $commande;
 

@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\DetailApproRepository;
+use App\Repository\DetailProductionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=DetailApproRepository::class)
+ * @ORM\Entity(repositoryClass=DetailProductionRepository::class)
  */
-class DetailAppro
+class DetailProduction
 {
     /**
      * @ORM\Id()
@@ -23,13 +23,13 @@ class DetailAppro
     private $quantite;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Appro::class, inversedBy="detailAppros")
+     * @ORM\ManyToOne(targetEntity=Production::class, inversedBy="detailProductions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $appro;
+    private $production;
 
     /**
-     * @ORM\ManyToOne(targetEntity=MatierePremiere::class, inversedBy="detailAppros")
+     * @ORM\OneToOne(targetEntity=MatierePremiere::class, inversedBy="detailProduction", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $matierePremiere;
@@ -51,14 +51,14 @@ class DetailAppro
         return $this;
     }
 
-    public function getAppro(): ?Appro
+    public function getProduction(): ?Production
     {
-        return $this->appro;
+        return $this->production;
     }
 
-    public function setAppro(?Appro $appro): self
+    public function setProduction(?Production $production): self
     {
-        $this->appro = $appro;
+        $this->production = $production;
 
         return $this;
     }

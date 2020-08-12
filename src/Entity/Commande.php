@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,10 +24,10 @@ class Commande
      */
     private $date;
 
-    /**
-     * @ORM\OneToOne(targetEntity=MatierePremiereCommande::class, mappedBy="commande", cascade={"persist", "remove"})
+    /** 
+     * @ORM\OneToMany(targetEntity=DetailCommande::class, mappedBy="commande", orphanRemoval=true)
      */
-    private $matierePremiereCommande;
+    private $detailCommande;
 
     public function getId(): ?int
     {
@@ -44,18 +46,18 @@ class Commande
         return $this;
     }
 
-    public function getMatierePremiereCommande(): ?MatierePremiereCommande
+    public function getDetailCommande(): ?DetailCommande
     {
-        return $this->matierePremiereCommande;
+        return $this->detailCommande;
     }
 
-    public function setMatierePremiereCommande(MatierePremiereCommande $matierePremiereCommande): self
+    public function setDetailCommande(DetailCommande $detailCommande): self
     {
-        $this->matierePremiereCommande = $matierePremiereCommande;
+        $this->detailCommande = $detailCommande;
 
         // set the owning side of the relation if necessary
-        if ($matierePremiereCommande->getCommande() !== $this) {
-            $matierePremiereCommande->setCommande($this);
+        if ($detailCommande->getCommande() !== $this) {
+            $detailCommande->setCommande($this);
         }
 
         return $this;

@@ -106,10 +106,10 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
                 return new RedirectResponse($this->urlGenerator->generate('home'));
             break;
             case 'gerant': 
-                return new RedirectResponse($this->urlGenerator->generate('manage_magasin'));
+                return new RedirectResponse($this->urlGenerator->generate('home_gerant'));
             break;
             case 'comptable':
-                return new RedirectResponse($this->urlGenerator->generate('home'));
+                return new RedirectResponse($this->urlGenerator->generate('home_comptable'));
             break;
 
         }

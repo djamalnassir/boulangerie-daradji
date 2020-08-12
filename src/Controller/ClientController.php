@@ -23,20 +23,7 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/client/accueil", name="home_comptable")
-     */
-    public function accueil()
-    {
-        $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
-        
-        return $this->render('client/accueil.html.twig', [
-            'page_name' => 'Client',
-            'profile' => $profile
-        ]);
-    }
-
-    /**
-     * @Route("/client/gerer", name="manage_client")
+     * @Route("/comptable/client/gerer", name="manage_client")
      */
     public function ajout(Request $request)
     {
@@ -55,7 +42,7 @@ class ClientController extends AbstractController
         $clients = $this->getDoctrine()->getRepository(Client::class)->findAll();
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
         
-        return $this->render('client/gestion.html.twig', [
+        return $this->render('comptable/client/gestion.html.twig', [
             'page_name' => 'Client',
             'form' => $form->createView(),
             'clients' => $clients,
@@ -64,7 +51,7 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/client/gerer/{id}", name="delete_client")
+     * @Route("/comptable/client/gerer/{id}", name="delete_client")
      */
     public function delete(int $id): Response
     {
@@ -77,7 +64,7 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/client/modifier/{id}", name="modify_client")
+     * @Route("/comptable/client/modifier/{id}", name="modify_client")
      */
     public function modify(Request $request, int $id): Response
     {
@@ -96,7 +83,7 @@ class ClientController extends AbstractController
         $clients = $this->getDoctrine()->getRepository(Client::class)->findAll();
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('client/modifier.html.twig', [
+        return $this->render('comptable/client/modifier.html.twig', [
             'page_name' => 'client',
             'form' => $form->createView(),
             'profile' => $profile

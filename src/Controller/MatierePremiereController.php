@@ -25,7 +25,7 @@ class MatierePremiereController extends AbstractController
     }
 
     /**
-     * @Route("/matiere/gerer", name="manage_matiere")
+     * @Route("gerant/matiere/gerer", name="manage_matiere")
      */
     public function manage()
     {
@@ -34,7 +34,7 @@ class MatierePremiereController extends AbstractController
         
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('matiere-premiere/gestion.html.twig', [
+        return $this->render('gerant/matiere-premiere/gestion.html.twig', [
             'page_name' => 'Matiere Premiere',
             'matieres' => $matieres,
             'profile' => $profile,
@@ -42,7 +42,7 @@ class MatierePremiereController extends AbstractController
     }
 
     /**
-     * @Route("/matiere/ajouter", name="add_matiere")
+     * @Route("gerant/matiere/ajouter", name="add_matiere")
      */
     public function ajout(Request $request, AuthenticationUtils $authenticationUtils)
     {
@@ -62,7 +62,7 @@ class MatierePremiereController extends AbstractController
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return $this->render('matiere-premiere/ajout.html.twig', [
+        return $this->render('gerant/matiere-premiere/ajout.html.twig', [
             'page_name' => 'Matiere Premiere',
             'form' => $form->createView(),
             'matieres' => $matieres,
@@ -72,7 +72,7 @@ class MatierePremiereController extends AbstractController
     }
 
     /**
-     * @Route("/matiere/supprimer/{id}", name="delete_matiere")
+     * @Route("gerant/matiere/supprimer/{id}", name="delete_matiere")
      */
     public function delete(int $id): Response
     {
@@ -85,7 +85,7 @@ class MatierePremiereController extends AbstractController
     }
 
     /**
-     * @Route("/matiere/modifier/{id}", name="modify_matiere")
+     * @Route("gerant/matiere/modifier/{id}", name="modify_matiere")
      */
     public function modify(Request $request, int $id): Response
     {
@@ -104,7 +104,7 @@ class MatierePremiereController extends AbstractController
         $matieres = $this->getDoctrine()->getRepository(MatierePremiere::class)->findAll();
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('matiere-premiere/modifier.html.twig', [
+        return $this->render('gerant/matiere-premiere/modifier.html.twig', [
             'page_name' => 'Matiere Premiere',
             'form' => $form->createView(),
             'profile' => $profile

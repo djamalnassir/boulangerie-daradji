@@ -19,8 +19,13 @@
               {{ error.messageKey|trans(error.messageData) }}
             </div>
           {% endif %}
-          {{ form_start(form) }}
+          {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+              {{ message }}
+            </div>
+          {% endfor %}
           
+          {{ form_start(form) }}
             <div class="form-group">
               <label>Choisir matiere premiere</label>
               {{form_widget(form.matierePremiere, {'attr': {'class': 'form-control'}})}}
@@ -28,7 +33,10 @@
             <div class="form-group">
               {{ form_row(form.quantite, {'attr': {'class': 'form-control'}}) }}
             </div>
-              
+            <div class="form-group">
+              <label>Choisir la commande</label>
+              {{form_widget(form.commande, {'attr': {'class': 'form-control'}})}}
+            </div>
               <button type="submit" class="btn btn-primary">Enregistrer</button>
           {{ form_end(form) }}
         </div>

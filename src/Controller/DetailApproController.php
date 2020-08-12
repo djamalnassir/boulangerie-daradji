@@ -29,7 +29,7 @@ class DetailApproController extends AbstractController
     }
 
     /**
-     * @Route("/detail-appro/gerer", name="manage_detail_appro")
+     * @Route("/gerant/detail-appro/gerer", name="manage_detail_appro")
      */
     public function manage()
     {
@@ -38,7 +38,7 @@ class DetailApproController extends AbstractController
         
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('detail-appro/gestion.html.twig', [
+        return $this->render('gerant/detail-appro/gestion.html.twig', [
             'page_name' => 'Approvisionnement',
             'detail_appros' => $detail_appros,
             'profile' => $profile,
@@ -46,7 +46,7 @@ class DetailApproController extends AbstractController
     }
 
     /**
-     * @Route("/detail-appro/ajout", name="add_detail_appro")
+     * @Route("/gerant/detail-appro/ajout", name="add_detail_appro")
      */
     public function add(AuthenticationUtils $authenticationUtils, Request $request)
     {
@@ -60,7 +60,7 @@ class DetailApproController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $qte_mp_appro = $form->getData()->getQuantite();
-            $mp_cmd = $form->getData()->getMatierePremiere()->getMatierePremiereCommande();
+            $mp_cmd = $form->getData()->getMatierePremiere()->getDetailCommande();
             $qte_mp_cmd = $mp_cmd->getQuantite();
 
             try{
@@ -79,7 +79,7 @@ class DetailApproController extends AbstractController
                     // mise à jour de l'objet détail commande pour le lier à une commande
                     $detail_appro->setAppro($appro);
 
-                    $magasin = $this->getDoctrine()->getRepository(MagasinStock::class)->find(10);
+                    $magasin = $this->getDoctrine()->getRepository(MagasinStock::class)->find(11);
                     
                     $detail_appro->getMatierePremiere()->setMagasinStock($magasin);
                     // persistence
@@ -105,7 +105,7 @@ class DetailApproController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('detail-appro/ajout.html.twig', [
+        return $this->render('gerant/detail-appro/ajout.html.twig', [
             'page_name' => 'Approvisionnement',
             'form' => $form->createView(),
             'error' => $error,

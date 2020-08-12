@@ -34,14 +34,19 @@ class MatierePremiere
     private $magasinStock;
 
     /**
-     * @ORM\OneToOne(targetEntity=MatierePremiereCommande::class, mappedBy="matierePremiere", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=DetailCommande::class, mappedBy="matierePremiere")
      */
-    private $matierePremiereCommande;
+    private $detailCommande;
 
     /**
-     * @ORM\OneToOne(targetEntity=DetailAppro::class, mappedBy="matierePremiere", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=DetailAppro::class, mappedBy="matierePremiere")
      */
     private $detailAppro;
+
+    /**
+     * @ORM\OneToOne(targetEntity=DetailProduction::class, mappedBy="matierePremiere", cascade={"persist", "remove"})
+     */
+    private $detailProduction;
 
     public function getId(): ?int
     {
@@ -84,18 +89,18 @@ class MatierePremiere
         return $this;
     }
 
-    public function getMatierePremiereCommande(): ?MatierePremiereCommande
+    public function getDetailCommande(): ?DetailCommande
     {
-        return $this->matierePremiereCommande;
+        return $this->detailCommande;
     }
 
-    public function setMatierePremiereCommande(MatierePremiereCommande $matierePremiereCommande): self
+    public function setDetailCommande(DetailCommande $detailCommande): self
     {
-        $this->matierePremiereCommande = $matierePremiereCommande;
+        $this->detailCommande = $detailCommande;
 
         // set the owning side of the relation if necessary
-        if ($matierePremiereCommande->getMatierePremiere() !== $this) {
-            $matierePremiereCommande->setMatierePremiere($this);
+        if ($detailCommande->getMatierePremiere() !== $this) {
+            $detailCommande->setMatierePremiere($this);
         }
 
         return $this;
@@ -113,6 +118,23 @@ class MatierePremiere
         // set the owning side of the relation if necessary
         if ($detailAppro->getMatierePremiere() !== $this) {
             $detailAppro->setMatierePremiere($this);
+        }
+
+        return $this;
+    }
+
+    public function getDetailProduction(): ?DetailProduction
+    {
+        return $this->detailProduction;
+    }
+
+    public function setDetailProduction(DetailProduction $detailProduction): self
+    {
+        $this->detailProduction = $detailProduction;
+
+        // set the owning side of the relation if necessary
+        if ($detailProduction->getMatierePremiere() !== $this) {
+            $detailProduction->setMatierePremiere($this);
         }
 
         return $this;
