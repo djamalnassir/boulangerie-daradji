@@ -6,7 +6,7 @@
         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
           {% if is_granted('ROLE_GERANT') %}
-            <a href="{{path('home_gerant')}}" class="nav-link active">
+            <a href="{{path('home_comptable')}}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 {% if app.user %}
@@ -20,30 +20,30 @@
         </li>
         <li class="nav-header">Liste des options</li>
         <li class="nav-item">
-          <a href="{{path('manage_matiere')}}" class="nav-link">
-            <i class="nav-icon fas fa-seedling"></i>
+          <a href="{{path('manage_client')}}" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
             <p>
-              Gestion Matieres Premieres
+              Gestion Clients
             </p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{path('manage_detail_commande')}}" class="nav-link">
-            <i class="nav-icon fas fa-paste"></i>
+          <a href="{{path('manage_detail_produit')}}" class="nav-link">
+            <i class="nav-icon fas fa-bread-slice"></i>
             <p>
-              Gestion Commandes
+              Gestion Produits
             </p>
           </a>
-          
         </li>
         <li class="nav-item">
-          <a href="{{path('manage_detail_appro')}}" class="nav-link">
-            <i class="nav-icon fas fa-dolly"></i>
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-money-bill-wave"></i>
             <p>
-              Gestion Appro
+              Gestion Ventes
             </p>
           </a>
         </li>
+        
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
@@ -166,4 +166,3 @@
     <!-- /.content -->
   </div>
 {{ include('inc/foot.html.twig') }}
-

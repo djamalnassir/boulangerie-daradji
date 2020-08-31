@@ -29,6 +29,18 @@ class Appro
      */
     private $detailAppros;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="appros")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commande;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="appros")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->detailAppros = new ArrayCollection();
@@ -78,6 +90,30 @@ class Appro
                 $detailAppro->setAppro(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

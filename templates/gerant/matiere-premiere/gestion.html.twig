@@ -1,4 +1,4 @@
-{% extends 'home.html.twig' %}
+{% extends 'accueil-gerant.html.twig' %}
 
 {% block containtFluid %}
 
@@ -27,7 +27,6 @@
                   <th>Code matiere premiere</th>
                   <th>Nom matiere premiere</th>
                   <th>Nom magasin</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               
@@ -42,14 +41,7 @@
                           {% else %}
                             <td>{{ matiere.magasinStock.nom }}</td>
                         {% endif %}
-                        <td>
-                          <a class="btn btn-info btn-sm" href="{{ path('modify_matiere', {'id': matiere.id}) }}">
-                            <i class="fas fa-pencil-alt"></i>
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="{{ path('delete_matiere', {'id': matiere.id}) }}">
-                            <i class="fas fa-trash"></i>
-                          </a>
-                        </td>
+                        
                       </tr>
                     {% endfor %}
                   {% endif %}

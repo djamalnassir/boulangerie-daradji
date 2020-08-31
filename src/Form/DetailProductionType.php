@@ -25,7 +25,7 @@ class DetailProductionType extends AbstractType
                 'class' => Production::class,
                 'choice_label' => 'id',
                 'required' => false,
-                'placeholder' => 'Matiere premiere'
+                'placeholder' => 'Production'
             ])
         ;
     }

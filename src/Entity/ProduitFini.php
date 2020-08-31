@@ -33,8 +33,13 @@ class ProduitFini
     private $prixUnitaire;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantite;
+
+    /**
      * @ORM\OneToOne(targetEntity=DetailProduitFini::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $detailProduitFini;
 
@@ -79,6 +84,19 @@ class ProduitFini
         return $this;
     }
 
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    
     public function getDetailProduitFini(): ?DetailProduitFini
     {
         return $this->detailProduitFini;

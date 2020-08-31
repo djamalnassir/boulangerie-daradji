@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Production;
+use App\Entity\MatierePremiere;
 use App\Entity\DetailProduction;
 use App\Form\DetailProductionType;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +55,28 @@ class DetailProductionController extends AbstractController
             $production = null;
 
             if($form->getData()->getMatierePremiere()->getMagasinStock() != null){
+
+                // id de la mp choisie
+                $id_mp = $form->getData()->getMatierePremiere()->getId();
+
+                // mp existant dans la bdd
+                $mp = $this->getDoctrine()->getRepository(MatierePremiere::class)->find($id_mp);
+                
+                // qte de la mp choisie
+                $qte_stock = $mp->getDetailAppro()->getQuantite();
+                // qte demandée
+                $qte_dmd = $form->getData()->getQuantite();
+
+                if($qte_dmd > $qte_stock){
+                    $this->addFlash('danger', 'La quantite demandée est supérieure à celle du stock!');
+                    return $this->redirectToRoute('add_detail_production');
+                }elseif($qte_dmd == $qte_stock){
+                    $mp->getDetailAppro()->setQuantite(0);
+                }else{
+                    $mp->getDetailAppro()->setQuantite($qte_stock-$qte_dmd);
+                }
+
+            }else{
 
                 $this->addFlash('danger', 'Matiere premiere en rupture de stock!');
                 return $this->redirectToRoute('add_detail_production');

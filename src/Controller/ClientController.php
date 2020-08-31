@@ -28,7 +28,7 @@ class ClientController extends AbstractController
     public function ajout(Request $request)
     {
         $client = new Client();
-        $form = $this->createForm(ClientType::class, $client );
+        $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
@@ -51,13 +51,13 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/comptable/client/gerer/{id}", name="delete_client")
+     * @Route("/comptable/client/supprimer/{id}", name="delete_client")
      */
     public function delete(int $id): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $clients = $entityManager->getRepository(Client::class)->find($id);
-        $entityManager->remove($clients);
+        $client = $entityManager->getRepository(Client::class)->find($id);
+        $entityManager->remove($client);
         $entityManager->flush();
 
         return $this->redirectToRoute("manage_client");

@@ -1,4 +1,4 @@
-{% extends 'home.html.twig' %}
+{% extends 'accueil-comptable.html.twig' %}
 
 {% block containtFluid %}
 
@@ -80,10 +80,7 @@
                   {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  {{ form_row(
-                    form.email, 
-                    {'attr': {'class': 'form-control', 'type':'email'}}
-                  )}}
+                  {{ form_row(form.email, {'attr': {'class': 'form-control', 'type':'email'}} )}}
                 </div>
                 <div class="form-group">
                   {{ form_row(form.telephone, {'attr': {'class': 'form-control'}}) }}

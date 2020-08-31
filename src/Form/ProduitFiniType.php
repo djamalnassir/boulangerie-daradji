@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\ProduitFini;
+use App\Entity\DetailProduitFini;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProduitFiniType extends AbstractType
 {
@@ -16,12 +17,7 @@ class ProduitFiniType extends AbstractType
             ->add('code')
             ->add('libelle')
             ->add('prixUnitaire')
-            ->add('detailProduitFini')
-            ->add('production', EntityType::class, [
-                'class' => Production::class,
-                'choice_label' => 'dateProduction',
-                'placeholder' => 'Production'
-            ])
+            ->add('quantite')
         ;
     }
 

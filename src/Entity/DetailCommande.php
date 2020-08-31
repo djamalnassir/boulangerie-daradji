@@ -23,8 +23,8 @@ class DetailCommande
     private $quantite;
 
     /**
-     * @ORM\ManyToOne(targetEntity=MatierePremiere::class, inversedBy="detailCommandes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=MatierePremiere::class, mappedBy="detailProduction", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $matierePremiere;
 
@@ -33,6 +33,12 @@ class DetailCommande
      * @ORM\JoinColumn(nullable=true)
      */
     private $commande;
+
+    /**
+     * @ORM\OneToOne(targetEntity=MatierePremiere::class, mappedBy="detailCommande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $matiereP;
 
     public function getId(): ?int
     {
@@ -60,6 +66,18 @@ class DetailCommande
     {
         $this->matierePremiere = $matierePremiere;
 
+        return $this;
+    }
+
+    public function getMatiereP(): ?MatierePremiere
+    {
+        return $this->matiereP;
+    }
+
+    public function setMatiereP(MatierePremiere $matiereP): self
+    {
+        $this->matiereP = $matiereP;
+        
         return $this;
     }
 

@@ -1,4 +1,4 @@
-{% extends 'home.html.twig' %}
+{% extends 'accueil-gerant.html.twig' %}
 
 {% block containtFluid %}
 
@@ -7,14 +7,16 @@
       <div class="card">
         <!-- card-header -->
         <div class="card-header">
-          <h3 class="card-title">Tableau des productions</h3>
-          <div class="btn-group float-right">
-              
-              <a class="btn btn-block bg-gradient-primary" href="{{ path('add_detail_production') }}">
+          <h3 class="card-title">Tableau des produits finis</h3>
+          {% if is_granted('ROLE_CHEF') or is_granted('ROLE_GERANT') %}
+            <div class="btn-group float-right">
+              <a class="btn btn-block bg-gradient-primary" href="{{ path('add_detail_produit') }}">
                 <i class="fas fa-plus"></i>
                 Ajouter
               </a>
-          </div>
+            </div>
+          {% endif %}
+          
         </div>
         <!-- /.card-header -->
 
@@ -24,30 +26,43 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>ID Production</th>
-                  <th>Matiere Premiere Prod</th>
-                  <th>Quantite Matiere Premiere Prod</th>
-                  <th>Date Production</th>
+                  <th>Code produit</th>
+                  <th>Libelle produit</th>
+                  {% if is_granted('ROLE_COMPTABLE') %}
+                    <th>Prix unitaire</th>    
+                  {% endif %}
+                  <th>Quantite produit</th>
                   <th>Action</th>
                 </tr>
               </thead>
               
                 <tbody>
-                  {% if detail_productions != null %}
-                    {% for detail in detail_productions %}
+                  {% if detail_produits != null %}
+                    {% for detail in detail_produits %}
                       <tr>
-                        <td>{{ detail.production.id }}</td>
-                        <td>{{ detail.matierePremiere.nom }}</td>
-                        <td>{{ detail.quantite }}</td>
-                        <td>{{ detail.production.dateProduction|date('d-m-Y') }}</td>
-                        <td>
-                          <a class="btn btn-info btn-sm" href="#">
-                            <i class="fas fa-pencil-alt"></i>
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash"></i>
-                          </a>
-                        </td>
+                        <td>{{ detail.code }}</td>
+                        <td>{{ detail.libelle }}</td>
+                        {% if is_granted('ROLE_COMPTABLE') %}
+                          <td>{{ detail.prixUnitaire }}</td>    
+                        {% endif %}
+                        <td>{{ detail.detailProduitFini.quantite }}</td>
+                        {% if is_granted('ROLE_GERANT') %}
+                          <td>
+                            <a class="btn btn-info btn-sm" href="#">
+                              <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash"></i>
+                            </a>
+                          </td>
+                          {% else %}
+                            <td>
+                              <a class="btn btn-danger btn-sm" href="#">
+                                <strong>VENDRE</strong>
+                              </a>
+                          </td>
+                        {% endif %}
+                        
                       </tr>
                     {% endfor %}
                   {% endif %}

@@ -58,9 +58,15 @@ class User implements UserInterface
      */
     private $ventes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Appro::class, mappedBy="user")
+     */
+    private $appros;
+
     public function __construct()
     {
         $this->ventes = new ArrayCollection();
+        $this->appros = new ArrayCollection();
     }
 
 /************************* GETTERS ****************************** */
@@ -175,6 +181,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($vente->getUser() === $this) {
                 $vente->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Appro[]
+     */
+    public function getAppros(): Collection
+    {
+        return $this->appros;
+    }
+
+    public function addAppro(Appro $appro): self
+    {
+        if (!$this->appros->contains($appro)) {
+            $this->appros[] = $appro;
+            $appro->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppro(Appro $appro): self
+    {
+        if ($this->appros->contains($appro)) {
+            $this->appros->removeElement($appro);
+            // set the owning side to null (unless already changed)
+            if ($appro->getUser() === $this) {
+                $appro->setUser(null);
             }
         }
 

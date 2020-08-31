@@ -22,8 +22,9 @@ class HomeController extends AbstractController
     public function index(TokenStorageInterface $tokenStorage)
     {
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
-        return $this->render('test.html.twig', [
-            'profile' => $profile
+        return $this->render('home.html.twig', [
+            'profile' => $profile,
+            'page_name' => 'Chef',
         ]);
     }
 
@@ -34,8 +35,8 @@ class HomeController extends AbstractController
     {
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('client/accueil.html.twig', [
-            'page_name' => 'Client',
+        return $this->render('accueil-comptable.html.twig', [
+            'page_name' => 'Comptables',
             'profile' => $profile
         ]);
     }
@@ -47,8 +48,8 @@ class HomeController extends AbstractController
     {
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
         
-        return $this->render('gerant/accueil.html.twig', [
-            'page_name' => 'Client',
+        return $this->render('accueil-gerant.html.twig', [
+            'page_name' => 'Gerant',
             'profile' => $profile
         ]);
     }

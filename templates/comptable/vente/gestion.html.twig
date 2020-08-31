@@ -1,4 +1,4 @@
-{% extends 'accueil-gerant.html.twig' %}
+{% extends 'accueil-comptable.html.twig' %}
 
 {% block containtFluid %}
 
@@ -7,11 +7,11 @@
       <div class="card">
         <!-- card-header -->
         <div class="card-header">
-          <h3 class="card-title">Tableau des matieres premieres</h3>
+          <h3 class="card-title">Tableau des ventes</h3>
           <div class="btn-group float-right">
               <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modalAjoutForm">
                 <i class="fas fa-plus"></i>
-                Ajouter
+                Vendre
               </button>
           </div>
         </div>
@@ -23,24 +23,28 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Code</th>
+                  <th>ID</th>
                   <th>Nom</th>
-                  <th>Magasin</th>
+                  <th>Prenom</th>
+                  <th>Email</th>
+                  <th>Téléphone</th>
                   <th>Action</th>
                 </tr>
               </thead>
               
                 <tbody>
-                  {% for matiere in matieres %}
+                  {% for client in clients %}
                     <tr>
-                      <td>{{ matiere.id }}</td>
-                      <td>{{ matiere.nom }}</td>
-                      <td>{{ matiere.adresse }}</td>
+                      <td>{{ client.id }}</td>
+                      <td>{{ client.nom }}</td>
+                      <td>{{ client.prenom }}</td>
+                      <td>{{ client.email }}</td>
+                      <td>{{ client.telephone }}</td>
                       <td>
-                        <a class="btn btn-info btn-sm" href="{{ path('modify_matiere', {'id': matiere.id}) }}">
+                        <a class="btn btn-info btn-sm" href="{{ path('modify_client', {'id': client.id}) }}">
                           <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a class="btn btn-danger btn-sm" href="{{ path('delete_matiere', {'id': matiere.id}) }}">
+                        <a class="btn btn-danger btn-sm" href="{{ path('delete_client', {'id': client.id}) }}">
                           <i class="fas fa-trash"></i>
                         </a>
                       </td>
@@ -64,7 +68,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header bg-primary">
-            <h4 class="modal-title">Ajout d'une matiere premiere</h4>
+            <h4 class="modal-title">Ajout d'un client</h4>
           </div>
           <div class="modal-body">
             
@@ -73,7 +77,13 @@
                   {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                  {{ form_row(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                  {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                  {{ form_row(form.email, {'attr': {'class': 'form-control', 'type':'email'}} )}}
+                </div>
+                <div class="form-group">
+                  {{ form_row(form.telephone, {'attr': {'class': 'form-control'}}) }}
                 </div>
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
               {{ form_end(form) }}

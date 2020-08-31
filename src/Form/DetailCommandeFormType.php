@@ -16,7 +16,7 @@ class DetailCommandeFormType extends AbstractType
     {
         $builder
             ->add('quantite')
-            ->add('matierePremiere', EntityType::class, [
+            ->add('matiereP', EntityType::class, [
                 'class' => MatierePremiere::class,
                 'choice_label' => 'nom',
                 'placeholder' => 'Matiere premiere'

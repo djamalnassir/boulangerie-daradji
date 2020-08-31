@@ -29,6 +29,17 @@ class Commande
      */
     private $detailCommande;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Appro::class, mappedBy="commande")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $appros;
+
+    public function __construct()
+    {
+        $this->appros = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -58,6 +69,37 @@ class Commande
         // set the owning side of the relation if necessary
         if ($detailCommande->getCommande() !== $this) {
             $detailCommande->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Appro[]
+     */
+    public function getAppros(): Collection
+    {
+        return $this->appros;
+    }
+
+    public function addAppro(Appro $appro): self
+    {
+        if (!$this->appros->contains($appro)) {
+            $this->appros[] = $appro;
+            $appro->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppro(Appro $appro): self
+    {
+        if ($this->appros->contains($appro)) {
+            $this->appros->removeElement($appro);
+            // set the owning side to null (unless already changed)
+            if ($appro->getCommande() === $this) {
+                $appro->setCommande(null);
+            }
         }
 
         return $this;

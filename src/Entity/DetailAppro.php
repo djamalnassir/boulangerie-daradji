@@ -29,7 +29,7 @@ class DetailAppro
     private $appro;
 
     /**
-     * @ORM\ManyToOne(targetEntity=MatierePremiere::class, inversedBy="detailAppros")
+     * @ORM\OneToOne(targetEntity=MatierePremiere::class, mappedBy="detailAppro", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $matierePremiere;

@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\MatierePremiereRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MatierePremiereRepository;
 
 /**
  * @ORM\Entity(repositoryClass=MatierePremiereRepository::class)
@@ -34,12 +34,12 @@ class MatierePremiere
     private $magasinStock;
 
     /**
-     * @ORM\OneToMany(targetEntity=DetailCommande::class, mappedBy="matierePremiere")
+     * @ORM\OneToOne(targetEntity=DetailCommande::class, mappedBy="matierePremiere", cascade={"persist", "remove"})
      */
     private $detailCommande;
 
     /**
-     * @ORM\OneToMany(targetEntity=DetailAppro::class, mappedBy="matierePremiere")
+     * @ORM\OneToOne(targetEntity=DetailAppro::class, mappedBy="matierePremiere", cascade={"persist", "remove"})
      */
     private $detailAppro;
 
@@ -89,22 +89,7 @@ class MatierePremiere
         return $this;
     }
 
-    public function getDetailCommande(): ?DetailCommande
-    {
-        return $this->detailCommande;
-    }
-
-    public function setDetailCommande(DetailCommande $detailCommande): self
-    {
-        $this->detailCommande = $detailCommande;
-
-        // set the owning side of the relation if necessary
-        if ($detailCommande->getMatierePremiere() !== $this) {
-            $detailCommande->setMatierePremiere($this);
-        }
-
-        return $this;
-    }
+    
 
     public function getDetailAppro(): ?DetailAppro
     {
@@ -136,6 +121,26 @@ class MatierePremiere
         if ($detailProduction->getMatierePremiere() !== $this) {
             $detailProduction->setMatierePremiere($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of detailCommande
+     */ 
+    public function getDetailCommande()
+    {
+        return $this->detailCommande;
+    }
+
+    /**
+     * Set the value of detailCommande
+     *
+     * @return  self
+     */ 
+    public function setDetailCommande($detailCommande)
+    {
+        $this->detailCommande = $detailCommande;
 
         return $this;
     }

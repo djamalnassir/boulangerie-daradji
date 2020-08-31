@@ -5,7 +5,8 @@ namespace App\Controller;
 
 use App\Entity\Production;
 use App\Entity\ProduitFini;
-use App\Form\DetailProduitFiniType;
+use App\Entity\DetailProduitFini;
+use App\Form\ProduitFiniType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,12 +24,12 @@ class DetailProduitFiniController extends AbstractController
     }
 
     /**
-     * @Route("/gerant/produit/gerer", name="manage_detail_produit")
+     * @Route("/produit/gerer", name="manage_detail_produit")
      */
     public function manage()
     {
 
-        $detail_produits = $this->getDoctrine()->getRepository(DetailProduitFini::class)->findAll();
+        $detail_produits = $this->getDoctrine()->getRepository(ProduitFini::class)->findAll();
         
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
@@ -40,27 +41,36 @@ class DetailProduitFiniController extends AbstractController
     }
 
     /**
-     * @Route("/gerant/produit/ajout", name="add_detail_produit")
+     * @Route("/produit/ajout", name="add_detail_produit")
      */
     public function add(AuthenticationUtils $authenticationUtils, Request $request)
     {
-        $detail_produit = new DetailProduitFini();
-        $form = $this->createForm(DetailProduitFiniType::class, $detail_produit);
+        $produit_fini = new ProduitFini();
+        $form = $this->createForm(ProduitFiniType::class, $produit_fini);
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid())
         {
+
+            $quantite = $form->getData()->getQuantite();
             $entityManager = $this->getDoctrine()->getManager();
 
-            $id_production = $form->getData()->getProduction()->getId();
-            $production = $this->getDoctrine()->getRepository(Production::class)->find($id_production);
-        
-            $detail_production->setProduction($production);
+            $production = $this->getDoctrine()->getRepository(Production::class)->findOneBy([], ['id' => 'desc']);
+            
+            $detail_produit = new DetailProduitFini();
+            $detail_produit->setProduction($production);
+            $detail_produit->setQuantite($quantite);
 
             // persistence
+            $entityManager->persist($produit_fini);
+
+            $detail_produit->setProduitFini($produit_fini);
             $entityManager->persist($detail_produit);
+            
+            $produit_fini->setDetailProduitFini($detail_produit);
             $entityManager->flush();
             $this->addFlash('success', 'Produit Fini ajouté avec succès!');
+
             return $this->redirectToRoute('manage_detail_produit');
         }
 

@@ -1,4 +1,4 @@
-{% extends 'home.html.twig' %}
+{% extends 'accueil-gerant.html.twig' %}
 
 {% block containtFluid %}
 
@@ -37,7 +37,7 @@
                     {% for detail in detail_commandes %}
                       <tr>
                         <td>{{ detail.commande.id }}</td>
-                        <td>{{ detail.matierePremiere.nom }}</td>
+                        <td>{{ detail.matiereP.nom }}</td>
                         <td>{{ detail.quantite }}</td>
                         <td>{{ detail.commande.date|date('d-m-Y') }}</td>
                         <td>
