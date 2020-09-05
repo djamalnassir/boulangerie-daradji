@@ -8,12 +8,6 @@
         <!-- card-header -->
         <div class="card-header">
           <h3 class="card-title">Tableau des ventes</h3>
-          <div class="btn-group float-right">
-              <button type="button" class="btn btn-block bg-gradient-primary" data-toggle="modal" data-target="#modalAjoutForm">
-                <i class="fas fa-plus"></i>
-                Vendre
-              </button>
-          </div>
         </div>
         <!-- /.card-header -->
 
@@ -23,34 +17,39 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>Email</th>
-                  <th>Téléphone</th>
+                  <th>Nom client</th>
+                  <th>Libelle produit</th>
+                  <th>Quantite vendu</th>
+                  <th>Total payé</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              
-                <tbody>
-                  {% for client in clients %}
+              <tbody>
+                {% if ventes != null %}
+                  {% for vente in ventes %}
                     <tr>
-                      <td>{{ client.id }}</td>
-                      <td>{{ client.nom }}</td>
-                      <td>{{ client.prenom }}</td>
-                      <td>{{ client.email }}</td>
-                      <td>{{ client.telephone }}</td>
+                      <td>{{ vente.client.nom }}</td>
+                      <td>{{ vente.produitFini.libelle }}</td>
+                      <td>{{ vente.quantite }}</td>
+                      <td>{{ vente.produitFini.prixUnitaire * vente.quantite }}</td>
                       <td>
-                        <a class="btn btn-info btn-sm" href="{{ path('modify_client', {'id': client.id}) }}">
-                          <i class="fas fa-pencil-alt"></i>
+                        <a class="btn btn-info btn-sm" href="#">
+                          <i class="fas fa-eye">
+                            voir facture
+                          </i>
                         </a>
-                        <a class="btn btn-danger btn-sm" href="{{ path('delete_client', {'id': client.id}) }}">
-                          <i class="fas fa-trash"></i>
+                        
+                        <a class="btn btn-secondary btn-sm" href="{{ path('generate_facture', {'id': vente.id}) }}">
+                          <i class="fas fa-print">
+                            imprimer facture
+                          </i>
                         </a>
                       </td>
+                      
                     </tr>
                   {% endfor %}
-                </tbody>
+                {% endif %}
+              </tbody>
               
             </table>
         </div>
@@ -61,37 +60,5 @@
     <!-- /.col -->
   </div>
   <!-- card -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalAjoutForm" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header bg-primary">
-            <h4 class="modal-title">Ajout d'un client</h4>
-          </div>
-          <div class="modal-body">
-            
-              {{ form_start(form) }}
-                <div class="form-group">
-                  {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                  {{ form_row(form.email, {'attr': {'class': 'form-control', 'type':'email'}} )}}
-                </div>
-                <div class="form-group">
-                  {{ form_row(form.telephone, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-              {{ form_end(form) }}
-            
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- /.Modal -->
 
 {% endblock %}

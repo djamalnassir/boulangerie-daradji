@@ -36,15 +36,15 @@ class ProduitFiniRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?ProduitFini
+    
+    public function findOneBySomeLibelle($libelle): ?ProduitFini
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('p.libelle = :val')
+            ->setParameter('val', $libelle)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

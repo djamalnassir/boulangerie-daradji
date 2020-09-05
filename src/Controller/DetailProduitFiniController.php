@@ -24,7 +24,7 @@ class DetailProduitFiniController extends AbstractController
     }
 
     /**
-     * @Route("/produit/gerer", name="manage_detail_produit")
+     * @Route("produit/gerer", name="manage_detail_produit")
      */
     public function manage()
     {
@@ -33,15 +33,26 @@ class DetailProduitFiniController extends AbstractController
         
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('gerant/produit/gestion.html.twig', [
-            'page_name' => 'Produit Fini',
-            'detail_produits' => $detail_produits,
-            'profile' => $profile,
-        ]);
+        if($profile == "COMPTABLE"){
+
+            return $this->render('produit/gestion-comptable.html.twig', [
+                'page_name' => 'Produit Fini',
+                'detail_produits' => $detail_produits,
+                'profile' => $profile,
+            ]);
+
+        }elseif($profile == "GERANT"){
+
+            return $this->render('produit/gestion-gerant.html.twig', [
+                'page_name' => 'Produit Fini',
+                'detail_produits' => $detail_produits,
+                'profile' => $profile,
+            ]);
+        }
     }
 
     /**
-     * @Route("/produit/ajout", name="add_detail_produit")
+     * @Route("produit/ajout", name="add_detail_produit")
      */
     public function add(AuthenticationUtils $authenticationUtils, Request $request)
     {
@@ -77,7 +88,7 @@ class DetailProduitFiniController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $profile = $this->tokenStorage->getToken()->getUser()->getProfile();
 
-        return $this->render('gerant/produit/ajout.html.twig', [
+        return $this->render('produit/ajout.html.twig', [
             'page_name' => 'Produit',
             'form' => $form->createView(),
             'error' => $error,

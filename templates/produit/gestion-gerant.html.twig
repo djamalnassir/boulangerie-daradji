@@ -1,0 +1,63 @@
+{% extends 'accueil-gerant.html.twig' %}
+
+{% block containtFluid %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!-- card-header -->
+        <div class="card-header">
+          <h3 class="card-title">Tableau des produits finis</h3>
+          <div class="btn-group float-right">
+            <a class="btn btn-block bg-gradient-primary" href="{{ path('add_detail_produit') }}">
+              <i class="fas fa-plus"></i>
+              Ajouter
+            </a>
+          </div>
+          
+        </div>
+        <!-- /.card-header -->
+
+        <!-- card-body -->
+        <div class="card-body">
+          
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Code produit</th>
+                  <th>Libelle produit</th>
+                  <th>Quantite produit</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              
+                <tbody>
+                  {% if detail_produits != null %}
+                    {% for detail in detail_produits %}
+                      <tr>
+                        <td>{{ detail.code }}</td>
+                        <td>{{ detail.libelle }}</td>
+                        <td>{{ detail.detailProduitFini.quantite }}</td>
+                        <td>
+                          <a class="btn btn-info btn-sm" href="#">
+                            <i class="fas fa-pencil-alt"></i>
+                          </a>
+                          <a class="btn btn-secondary btn-sm" href="#">
+                            <i class="fas fa-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- card -->
+
+{% endblock %}

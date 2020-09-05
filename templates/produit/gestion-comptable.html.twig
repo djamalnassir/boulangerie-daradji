@@ -1,0 +1,53 @@
+{% extends 'accueil-comptable.html.twig' %}
+
+{% block containtFluid %}
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!-- card-header -->
+        <div class="card-header">
+          <h3 class="card-title">Tableau des produits finis</h3>
+        </div>
+        <!-- /.card-header -->
+
+        <!-- card-body -->
+        <div class="card-body">
+          
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Libelle produit</th>
+                  <th>Prix unitaire</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% if detail_produits != null %}
+                    {% for detail in detail_produits %}
+                      <tr>
+                        <td>{{ detail.libelle }}</td>
+                        <td>{{ detail.prixUnitaire }}</td>
+                        <td>
+                          <a class="btn btn-info btn-sm" href="{{ path('add_vente')}}">
+                            <i class="fas fa-dollar-sign">
+                              VENDRE
+                            </i>
+                          </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                </tbody>
+              
+            </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- card -->
+
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'accueil-gerant.html.twig' %}
+{% extends 'accueil-comptable.html.twig' %}
 
 {% block containtFluid %}
 
@@ -8,7 +8,7 @@
         
         <!-- card-header -->
         <div class="card-header">
-          <h3 class="card-title">Approvisionnement</h3>
+          <h3 class="card-title">Vente</h3>
         </div>
         <!-- /.card-header -->
 
@@ -22,9 +22,15 @@
           {{ form_start(form) }}
               
             <div class="form-group">
-              {{ form_row(form.quantite, {'attr': {'class': 'form-control'}}) }}
+                {{form_widget(form.client, {'attr': {'class': 'form-control'}})}}
             </div>
-              
+            <div class="form-group">
+              {{ form_widget(form.produitFini, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{form_row(form.quantite, {'attr': {'class': 'form-control'}})}}
+            </div>
+               
             <button type="submit" class="btn btn-primary">Enregistrer</button>
 
           {{ form_end(form) }}

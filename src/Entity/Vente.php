@@ -34,6 +34,17 @@ class Vente
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantite;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProduitFini::class, inversedBy="ventes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $produitFini;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +82,30 @@ class Vente
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    public function getProduitFini(): ?ProduitFini
+    {
+        return $this->produitFini;
+    }
+
+    public function setProduitFini(?ProduitFini $produitFini): self
+    {
+        $this->produitFini = $produitFini;
 
         return $this;
     }
